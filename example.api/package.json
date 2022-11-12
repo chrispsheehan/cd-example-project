@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon src/index.ts",
     "static": "yarn build && node dist/index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "docker-build": "docker build . -t example-api:$TAG && docker tag example-api:$TAG $REPO/example-api:$TAG && docker push $REPO/example-api:$TAG"
   },
   "dependencies": {
     "body-parser": "^1.20.0",
