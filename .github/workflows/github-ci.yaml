@@ -6,12 +6,20 @@ on:
       - 'main'
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Node.js
+        uses: actions/setup-node@v1
+      - run: npm install -g yarn    
+      - name: yarn install, build and test
+        run: | 
+          yarn 
+          yarn build
   docker:
     runs-on: ubuntu-latest
     steps:
-      - 
-        name: Build
-        run: yarn && tsc
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
