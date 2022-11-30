@@ -16,7 +16,8 @@ jobs:
           node-version: 16
       - run: npm install -g yarn
       - name: yarn install, build and test
-        run: | 
+        run: |
+          ls ${GITHUB_WORKSPACE}/example.api
           yarn --cwd ${GITHUB_WORKSPACE}/example.api
           yarn build --cwd ${GITHUB_WORKSPACE}/example.api
   # docker:
