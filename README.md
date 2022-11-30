@@ -56,4 +56,4 @@ kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}
 
 ## NOTES
 
-- Argocd will update from the repo every 3 minutes (be patient!) 
+- Argocd will update from the repo every 3 minutes (be patient!)
