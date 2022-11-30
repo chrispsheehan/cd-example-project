@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: example-app
+spec:
+  destination:
+    namespace: default
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: infra/manifests
+    repoURL: 'https://github.com/chrispsheehan/cd-example-project'
+    targetRevision: main
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+
