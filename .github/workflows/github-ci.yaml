@@ -37,6 +37,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ./exmaple.api
+          context: ${GITHUB_WORKSPACE}/example.api
           push: true
           tags: user/app:latest
