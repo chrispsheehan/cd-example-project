@@ -17,9 +17,10 @@ jobs:
       - run: npm install -g yarn
       - name: yarn install, build and test
         run: |
-          ls ${GITHUB_WORKSPACE}/example.api
-          yarn --cwd ${GITHUB_WORKSPACE}/example.api
-          yarn build --cwd ${GITHUB_WORKSPACE}/example.api
+          cd ${GITHUB_WORKSPACE}/example.api
+          ls
+          yarn
+          yarn build
   # docker:
   #   runs-on: ubuntu-latest
   #   steps:
