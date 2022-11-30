@@ -11,7 +11,7 @@ jobs:
     steps:
       - 
         name: Build
-        uses: yarn && tsc
+        run: yarn && tsc
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
