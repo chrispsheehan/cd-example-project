@@ -39,6 +39,4 @@ jobs:
         with:
           context: ./example.api/
           push: true
-          tags: user/app:latest
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/app:latest
