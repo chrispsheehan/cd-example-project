@@ -38,6 +38,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ./example.api/
-          file: ${GITHUB_WORKSPACE}/example.api/dockerfile
           push: true
           tags: user/app:latest
