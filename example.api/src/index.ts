@@ -15,5 +15,6 @@ app.listen(port, () => {
 });
 
 app.get('/health', (request, response) => {
-  response.json({ info: ('API lives!') })
+  response.json({ info: ('API lives!') });
+  console.log("/health hit");
 });

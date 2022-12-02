@@ -4,10 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon src/index.ts",
+    "start": "yarn && tsc -w & nodemon -q -w dist dist/index.js",
     "static": "yarn build && node dist/index.js",
-    "build": "tsc",
-    "docker-build": "docker build . -t example-api:$TAG && docker tag example-api:$TAG $REPO/example-api:$TAG && docker push $REPO/example-api:$TAG"
+    "build": "tsc"
   },
   "dependencies": {
     "@types/node": "^18.11.9",
