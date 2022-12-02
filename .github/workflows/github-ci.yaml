@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Add SHORT_SHA env property with commit short sha
-        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+        run: export SHORT_SHA="`echo ${GITHUB_SHA} | cut -c1-8`"
       - uses: actions/checkout@v2
       - name: Node.js
         uses: actions/setup-node@v1
@@ -41,4 +41,4 @@ jobs:
         with:
           context: ./example.api/
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/example.api:${SHORT_SHA}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/example.api:${{ SHORT_SHA }}
