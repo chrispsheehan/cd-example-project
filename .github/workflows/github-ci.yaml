@@ -10,23 +10,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set short git commit SHA
-      id: vars
-      run: |
-        calculatedSha=$(git rev-parse --short ${GITHUB_SHA})
-        echo "calculatedSha=$calculatedSha"
-        echo "short_sha=$calculatedSha" >> $GITHUB_STATE
+    - name: Set env
+      run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+    - name: Test
+      run: echo $GITHUB_SHA_SHORT
 
-    # - name: Set short git commit SHA
-    #   id: vars
-    #   run: |
-    #     calculatedSha=$(git rev-parse --short ${{ github.sha }})
-    #     echo "::set-output name=short_sha::$calculatedSha"
 
-    - name: Confirm git commit SHA output
-      env:
-        HASH: ${{ steps.vars.outputs.short_sha }}
-      run: echo "asdasdasd $HASH"
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Set short git commit SHA
+#       id: vars
+#       run: |
+#         calculatedSha=$(git rev-parse --short ${GITHUB_SHA})
+#         echo "calculatedSha=$calculatedSha"
+#         echo "short_sha=$calculatedSha" >> $GITHUB_STATE
+
+#     # - name: Set short git commit SHA
+#     #   id: vars
+#     #   run: |
+#     #     calculatedSha=$(git rev-parse --short ${{ github.sha }})
+#     #     echo "::set-output name=short_sha::$calculatedSha"
+
+#     - name: Confirm git commit SHA output
+#       env:
+#         HASH: ${{ steps.vars.outputs.short_sha }}
+#       run: echo "asdasdasd $HASH"
 
       # - uses: actions/checkout@v2
       # - name: Node.js
