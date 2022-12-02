@@ -39,4 +39,4 @@ jobs:
         with:
           context: ./example.api/
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/example.api:${{ GITHUB_SHA::7 }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/example.api:$(git rev-parse --short HEAD)
