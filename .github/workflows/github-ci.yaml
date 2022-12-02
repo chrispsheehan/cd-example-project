@@ -44,4 +44,4 @@ jobs:
         with:
           context: ./example.api/
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/example.api:${{ steps.vars.outputs.sha_short }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/example-api:${{ steps.vars.outputs.sha_short }}
