@@ -9,13 +9,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      name: Set short git commit SHA
+    - name: Set short git commit SHA
       env:
         ShortSha: $(git rev-parse --short ${{ github.sha }})
       id: vars
-    - name: Confirm git commit SHA output
-      run: echo $ShortSha
+      run: echo "am I here? $ShortSha"
+
 
 
     # - name: Set short git commit SHA
