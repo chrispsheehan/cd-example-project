@@ -9,17 +9,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Set GitHub short hash
+    - 
+      uses: actions/checkout@v2
+    - 
+      name: Set GitHub short hash
       run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
-    - name: Print GitHub short hash
+    - 
+      name: Print GitHub short hash
       run: echo "Short hash=$GITHUB_SHA_SHORT"
 
-    - uses: actions/setup-node@v1
+    - 
+      uses: actions/setup-node@v1
       name: Node.js
       with:
         node-version: 16
-    - name: yarn build
+    - 
+      name: yarn build
       run: |
         cd ${GITHUB_WORKSPACE}/example.api
         ls
