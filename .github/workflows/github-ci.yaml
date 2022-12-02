@@ -25,7 +25,7 @@ jobs:
 
     - name: Confirm git commit SHA output
       env:
-        HASH: ${{ steps.vars.short_sha }}
+        HASH: ${{ steps.vars.outputs.short_sha }}
       run: echo "asdasdasd $HASH"
 
       # - uses: actions/checkout@v2
