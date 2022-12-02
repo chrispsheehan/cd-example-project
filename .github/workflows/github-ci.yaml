@@ -23,7 +23,7 @@ jobs:
     #     echo "::set-output name=short_sha::$calculatedSha"
 
     - name: Confirm git commit SHA output
-      run: echo ${{ steps.vars.outputs.short_sha }}
+      run: echo "asdasdasd${GITHUB_SHA}""
 
       # - uses: actions/checkout@v2
       # - name: Node.js
