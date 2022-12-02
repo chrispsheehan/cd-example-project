@@ -10,12 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Set short git commit SHA
-      env:
-        ShortSha: $(git rev-parse --short ${{ github.sha }})
       id: vars
-      run: echo "am I here? $ShortSha"
-
-
+      run: |
+        calculatedSha=$(git rev-parse --short ${{ github.sha }})
+        echo "short_sha=$calculatedSha" >> $GITHUB_STATE
 
     # - name: Set short git commit SHA
     #   id: vars
@@ -23,8 +21,8 @@ jobs:
     #     calculatedSha=$(git rev-parse --short ${{ github.sha }})
     #     echo "::set-output name=short_sha::$calculatedSha"
 
-    # - name: Confirm git commit SHA output
-    #   run: echo ${{ steps.vars.outputs.short_sha }}
+    - name: Confirm git commit SHA output
+      run: echo ${{ steps.vars.outputs.short_sha }}
 
       # - uses: actions/checkout@v2
       # - name: Node.js
