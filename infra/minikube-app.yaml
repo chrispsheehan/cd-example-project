@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: example-app
+  name: example
 spec:
   destination:
     namespace: default
@@ -9,7 +9,7 @@ spec:
   source:
     path: infra/manifests
     repoURL: 'https://github.com/chrispsheehan/cd-example-project'
-    targetRevision: main
+    targetRevision: jsonnet
   project: default
   syncPolicy:
     automated:
