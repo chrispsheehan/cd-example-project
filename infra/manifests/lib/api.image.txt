@@ -1,1 +1,1 @@
-chrispsheehan/example-api:a6355a
+chrispsheehan/example-api:6e3034
