@@ -59,9 +59,8 @@ jobs:
         echo ${{ env.DOCKER_IMAGE }} > ${GITHUB_WORKSPACE}/infra/manifests/lib/api.image.txt
         cat ${GITHUB_WORKSPACE}/infra/manifests/lib/api.image.txt
 
-    # -
-    #   name: Commit and push changes
-    #   uses: devops-infra/action-commit-push@v0.3
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     commit_message: Version updated
+    - name: Commit and push changes
+      uses: devops-infra/action-commit-push@v0.3
+      with:
+        github_token: ${{ secrets.GIT_TOKEN }}
+        commit_message: Version updated

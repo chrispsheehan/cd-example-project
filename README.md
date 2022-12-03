@@ -43,6 +43,14 @@ kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}
 
 - Access UI via `https://localhost:8080/login?`
 
+## Github required secrets
+
+```sh
+DOCKERHUB_TOKEN
+DOCKERHUB_USERNAME
+GIT_TOKEN // https://github.com/settings/tokens
+```
+
 ## Deploy app (connect to git)
 
 - *IMPORTANT*: Change `[YOU]` to match your github url in `argocd-app.yaml`
