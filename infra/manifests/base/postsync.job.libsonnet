@@ -1,4 +1,4 @@
-local Config = import "../config.libsonnet";
+local Config = import "../lib/config.libsonnet";
 
 {
     Spec(name, wave): {
