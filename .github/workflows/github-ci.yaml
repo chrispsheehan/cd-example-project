@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - 'commit-image-tag'
+      - 'main'
 
 jobs:
   build:
