@@ -2,7 +2,7 @@
     Namespace:: 'example-app',
 
     Api:: {
-        Image: 'chrispsheehan/example-api:a63557',
+        Image: importstr "api.image.txt",
         Name: 'example-api',
         Replicas: 2,
         Port: 80,

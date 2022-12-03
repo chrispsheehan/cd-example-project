@@ -3,7 +3,7 @@ local Deployment = import "./base/deployment.libsonnet";
 local Replica = import "./base/replicaset.libsonnet";
 local Pod = import "./base/pod.libsonnet";
 local Base = import "./base/metadata.libsonnet";
-local Config = import "config.libsonnet";
+local Config = import "./lib/config.libsonnet";
 
 [
     Deployment.Spec(Config.Api.Name) {
