@@ -56,7 +56,7 @@ jobs:
     - name: Write build image to file
       run: | 
         : > ${GITHUB_WORKSPACE}/infra/manifests/lib/api.image.txt
-        echo ${{ env.DOCKER_IMAGE }} | xargs > ${GITHUB_WORKSPACE}/infra/manifests/lib/api.image.txt
+        echo ${{ env.DOCKER_IMAGE }} | xargs |tr '\n' '' > ${GITHUB_WORKSPACE}/infra/manifests/lib/api.image.txt
         cat ${GITHUB_WORKSPACE}/infra/manifests/lib/api.image.txt
 
     - name: Commit and push changes
