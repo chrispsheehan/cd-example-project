@@ -1,1 +1,1 @@
-chrispsheehan/example-api:fda75e
+chrispsheehan/example-api:2cf2e8
