@@ -50,7 +50,7 @@ kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}
 - Connect to Git via `https://localhost:8080/settings/repos?addRepo=true`
   - Make your life easy by marking as public (for testing)
 
-- Create app `kubectl apply -f argocd-app.yaml -n argocd`
+- Create app `kubectl apply -f minikube-app.yaml -n argocd`
 
 - App can be seen at `https://localhost:8080/applications?`
 

@@ -43,7 +43,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - 
-      name: Set Docker username
+      name: Set Docker username env var
       run: echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
     -
       name: Build and push
@@ -52,3 +52,10 @@ jobs:
         context: ./example.api/
         push: true
         tags: ${{ env.DOCKERHUB_USERNAME }}/example-api:${{ env.GITHUB_SHA_SHORT }}
+
+    # -
+    #   name: Commit and push changes
+    #   uses: devops-infra/action-commit-push@v0.3
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     commit_message: Version updated

@@ -9,7 +9,7 @@ spec:
   source:
     path: infra/manifests
     repoURL: 'https://github.com/chrispsheehan/cd-example-project'
-    targetRevision: jsonnet
+    targetRevision: main
   project: default
   syncPolicy:
     automated:
