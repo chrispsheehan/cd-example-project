@@ -59,9 +59,9 @@ jobs:
 
     - name: Write build image to file
       run: | 
-        : > ${GITHUB_WORKSPACE}/$IMAGE_FILE
-        echo ${{ env.DOCKER_IMAGE }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/$IMAGE_FILE
-        cat ${GITHUB_WORKSPACE}/$IMAGE_FILE
+        : > ${GITHUB_WORKSPACE}/${{ env.IMAGE_FILE }}
+        echo ${{ env.DOCKER_IMAGE }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/${{ env.IMAGE_FILE }}
+        cat ${GITHUB_WORKSPACE}/${{ env.IMAGE_FILE }}
 
     - name: Commit and push changes
       uses: devops-infra/action-commit-push@v0.3
