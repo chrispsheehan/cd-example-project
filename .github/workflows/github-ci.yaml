@@ -53,7 +53,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v3
       with:
-        context: ./$SRC_FOLDER/
+        context: ./${{ env.SRC_FOLDER }}/
         push: true
         tags: ${{ env.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.GITHUB_SHA_SHORT }}
 
