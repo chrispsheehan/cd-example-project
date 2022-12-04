@@ -18,10 +18,8 @@ jobs:
     - name: Set environment variables
       run: | 
         echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
-        echo "Short hash=${{ env.GITHUB_SHA_SHORT }}"
         echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
         echo "DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.GITHUB_SHA_SHORT }}" >> $GITHUB_ENV
-        echo "Docker Image=${{ env.DOCKER_IMAGE }}"
 
     - uses: actions/setup-node@v1
       name: Node.js
@@ -57,7 +55,7 @@ jobs:
       with:
         context: ./${{ env.SRC_FOLDER }}/
         push: true
-        tags: ${{ env.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.GITHUB_SHA_SHORT }}
+        tags: "${{ env.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.GITHUB_SHA_SHORT }}"
 
     - name: Write build image to file
       run: | 
