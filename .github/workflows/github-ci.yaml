@@ -15,10 +15,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set GitHub short hash
+    - name: Set environment variables
       run: | 
         echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
         echo "Short hash=$GITHUB_SHA_SHORT"
+        echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
+        echo "DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.GITHUB_SHA_SHORT }}" >> $GITHUB_ENV
+        echo "Docker Image=$DOCKER_IMAGE"
 
     - uses: actions/setup-node@v1
       name: Node.js
@@ -44,10 +47,10 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     
-    - name: Set Docker env variables
-      run: | 
-        echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
-        echo "DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.GITHUB_SHA_SHORT }}" >> $GITHUB_ENV
+    # - name: Set Docker env variables
+    #   run: | 
+    #     echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
+    #     echo "DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.GITHUB_SHA_SHORT }}" >> $GITHUB_ENV
     
     - name: Build and push
       uses: docker/build-push-action@v3
