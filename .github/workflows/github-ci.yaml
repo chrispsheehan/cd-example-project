@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - 'main'
+env:
+  SRC_FOLDER: "example.api"
+  APP_NAME: "example-api"
+  IMAGE_FILE: infra/manifests/lib/api.image.txt
 
 jobs:
   build:
@@ -11,11 +15,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set GitHub short hash
-      run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
-
-    - name: Print GitHub short hash
-      run: echo "Short hash=$GITHUB_SHA_SHORT"
+    - name: Set environment variables
+      run: | 
+        echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+        echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
 
     - uses: actions/setup-node@v1
       name: Node.js
@@ -24,7 +27,7 @@ jobs:
     
     - name: yarn build
       run: |
-        cd ${GITHUB_WORKSPACE}/example.api
+        cd ${GITHUB_WORKSPACE}/$SRC_FOLDER
         ls
         yarn
         yarn build
@@ -41,23 +44,18 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     
-    - name: Set Docker env variables
-      run: | 
-        echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
-        echo "DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/example-api:${{ env.GITHUB_SHA_SHORT }}" >> $GITHUB_ENV
-    
     - name: Build and push
       uses: docker/build-push-action@v3
       with:
-        context: ./example.api/
+        context: ./${{ env.SRC_FOLDER }}/
         push: true
-        tags: ${{ env.DOCKERHUB_USERNAME }}/example-api:${{ env.GITHUB_SHA_SHORT }}
+        tags: "${{ env.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.GITHUB_SHA_SHORT }}"
 
     - name: Write build image to file
       run: | 
-        : > ${GITHUB_WORKSPACE}/infra/manifests/lib/api.image.txt
-        echo ${{ env.DOCKER_IMAGE }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/infra/manifests/lib/api.image.txt
-        cat ${GITHUB_WORKSPACE}/infra/manifests/lib/api.image.txt
+        : > ${GITHUB_WORKSPACE}/${{ env.IMAGE_FILE }}
+        echo ${{ env.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.GITHUB_SHA_SHORT }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/${{ env.IMAGE_FILE }}
+        cat ${GITHUB_WORKSPACE}/${{ env.IMAGE_FILE }}
 
     - name: Commit and push changes
       uses: devops-infra/action-commit-push@v0.3

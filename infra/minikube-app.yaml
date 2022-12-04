@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: example
+  name: example-main
 spec:
   destination:
     namespace: default
@@ -15,4 +15,3 @@ spec:
     automated:
       prune: false
       selfHeal: false
-
