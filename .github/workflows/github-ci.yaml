@@ -55,7 +55,7 @@ jobs:
       with:
         context: ./$SRC_FOLDER/
         push: true
-        tags: ${{ env.DOCKERHUB_USERNAME }}/$APP_NAME:${{ env.GITHUB_SHA_SHORT }}
+        tags: ${{ env.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.GITHUB_SHA_SHORT }}
 
     - name: Write build image to file
       run: | 
