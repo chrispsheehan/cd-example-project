@@ -19,7 +19,6 @@ jobs:
       run: | 
         echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
         echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
-        echo "DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.GITHUB_SHA_SHORT }}" >> $GITHUB_ENV
 
     - uses: actions/setup-node@v1
       name: Node.js
@@ -60,7 +59,7 @@ jobs:
     - name: Write build image to file
       run: | 
         : > ${GITHUB_WORKSPACE}/${{ env.IMAGE_FILE }}
-        echo ${{ env.DOCKER_IMAGE }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/${{ env.IMAGE_FILE }}
+        echo ${{ env.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.GITHUB_SHA_SHORT }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/${{ env.IMAGE_FILE }}
         cat ${GITHUB_WORKSPACE}/${{ env.IMAGE_FILE }}
 
     - name: Commit and push changes
