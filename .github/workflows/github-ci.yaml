@@ -48,7 +48,7 @@ jobs:
     - name: Set Docker env variables
       run: | 
         echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
-        echo "DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/$APP_NAME:${{ env.GITHUB_SHA_SHORT }}" >> $GITHUB_ENV
+        echo "DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/${{ APP_NAME }}:${{ env.GITHUB_SHA_SHORT }}" >> $GITHUB_ENV
     
     - name: Build and push
       uses: docker/build-push-action@v3
