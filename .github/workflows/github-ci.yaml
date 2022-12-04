@@ -3,7 +3,11 @@ name: ci
 on:
   push:
     branches:
-      - 'main'
+      - 'tidy-actions'
+env:
+  SRC_FOLDER: "example.api"
+  APP_NAME: "example-api"
+  IMAGE_FILE: infra/manifests/lib/api.image.txt
 
 jobs:
   build:
@@ -24,7 +28,7 @@ jobs:
     
     - name: yarn build
       run: |
-        cd ${GITHUB_WORKSPACE}/example.api
+        cd ${GITHUB_WORKSPACE}/{{ env.SRC_FOLDER }}
         ls
         yarn
         yarn build
@@ -44,20 +48,20 @@ jobs:
     - name: Set Docker env variables
       run: | 
         echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
-        echo "DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/example-api:${{ env.GITHUB_SHA_SHORT }}" >> $GITHUB_ENV
+        echo "DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/{{ env.APP_NAME }}:${{ env.GITHUB_SHA_SHORT }}" >> $GITHUB_ENV
     
     - name: Build and push
       uses: docker/build-push-action@v3
       with:
-        context: ./example.api/
+        context: ./${{ env.SRC_FOLDER }}/
         push: true
-        tags: ${{ env.DOCKERHUB_USERNAME }}/example-api:${{ env.GITHUB_SHA_SHORT }}
+        tags: ${{ env.DOCKERHUB_USERNAME }}/{{ env.APP_NAME }}:${{ env.GITHUB_SHA_SHORT }}
 
     - name: Write build image to file
       run: | 
-        : > ${GITHUB_WORKSPACE}/infra/manifests/lib/api.image.txt
-        echo ${{ env.DOCKER_IMAGE }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/infra/manifests/lib/api.image.txt
-        cat ${GITHUB_WORKSPACE}/infra/manifests/lib/api.image.txt
+        : > ${GITHUB_WORKSPACE}/${{ env.IMAGE_FILE }}
+        echo ${{ env.DOCKER_IMAGE }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/${{ env.IMAGE_FILE }}
+        cat ${GITHUB_WORKSPACE}/${{ env.IMAGE_FILE }}
 
     - name: Commit and push changes
       uses: devops-infra/action-commit-push@v0.3
