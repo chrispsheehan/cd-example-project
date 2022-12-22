@@ -28,9 +28,16 @@ jobs:
       with:
         node-version: 16
     
-    - name: yarn build
+    - name: WEB - Build
       run: |
-        cd ${GITHUB_WORKSPACE}/$SRC_FOLDER
+        cd ${GITHUB_WORKSPACE}/$WEB_SRC_FOLDER
+        ls
+        npm install
+        npm install react-scripts
+
+    - name: API - Build
+      run: |
+        cd ${GITHUB_WORKSPACE}/$API_SRC_FOLDER
         ls
         yarn
         yarn build
