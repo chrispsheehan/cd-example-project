@@ -9,7 +9,7 @@ function App() {
 
   const fetchData = () => {
 
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch("http://localhost:3001/uuid")
       .then(response => {
         return response.json()
       })
@@ -38,14 +38,6 @@ function App() {
             )}
           </div>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );

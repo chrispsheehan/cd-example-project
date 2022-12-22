@@ -6,7 +6,12 @@ const generateUuid = (request: any, response: any) => {
 
     console.info(`Generated uuid!!! -> ${myuuid}`);
 
-    response.status(200).json({uuid: myuuid});
+    response.status(200).json([
+        {
+            id: 1,
+            name: myuuid
+        }
+    ]);
 }
 
 export default {
