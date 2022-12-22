@@ -1,7 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 const app = express();
-const port = 3000;
+const port = 3001;
+
+import actions from './actions';
 
 app.use(bodyParser.json());
 app.use(
@@ -18,3 +20,8 @@ app.get('/health', (request, response) => {
   response.json({ info: ('API lives!') });
   console.log("/health hit");
 });
+
+app.get('/uuid', (request, response) => {
+
+  actions.generateUuid(request, response);
+})
