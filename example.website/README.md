@@ -3,7 +3,7 @@
 ## Develop
 
 ```sh
-npm start
+API_HOST="http://localhost" npm start
 ```
 
 ## Usage
