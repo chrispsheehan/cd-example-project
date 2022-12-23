@@ -3,13 +3,15 @@ import React, { useEffect, useState } from "react"
 import logo from './logo.svg';
 import './App.css';
 
+let API_HOST = process.env.API_HOST;
+
 function App() {
 
   const [users, setUsers] = useState([])
 
   const fetchData = () => {
 
-    fetch("http://localhost:3001/uuid")
+    fetch(`${API_HOST}:3001/uuid`)
       .then(response => {
         return response.json()
       })
