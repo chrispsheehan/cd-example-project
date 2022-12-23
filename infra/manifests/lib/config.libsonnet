@@ -10,7 +10,7 @@
     },
 
     Web:: {
-        Image: importstr "web.image.txt",
+        Image: importstr "website.image.txt",
         Name: 'example-web',
         Replicas: 2,
         Port: 80,
