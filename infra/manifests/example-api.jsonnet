@@ -35,7 +35,7 @@ local Config = import "./lib/config.libsonnet";
                 {
                     name: 'http',
                     protocol: 'TCP',
-                    port: 80,
+                    port: Config.Api.Port,
                     targetPort: Config.Api.Port,
                 },
             ],

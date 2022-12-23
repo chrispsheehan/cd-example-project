@@ -5,7 +5,7 @@
         Image: importstr "api.image.txt",
         Name: 'example-api',
         Replicas: 2,
-        Port: 80,
+        Port: 3001,
         Service: 'example-api-service'
     },
 
@@ -13,7 +13,7 @@
         Image: importstr "website.image.txt",
         Name: 'example-web',
         Replicas: 2,
-        Port: 80,
+        Port: 3000,
         Service: 'example-web-service'
     },
 }
