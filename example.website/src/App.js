@@ -3,13 +3,17 @@ import React, { useEffect, useState } from "react"
 import logo from './logo.svg';
 import './App.css';
 
+const { REACT_APP_API_HOST } = process.env
+
+//need to set things like this https://www.freecodecamp.org/news/how-to-implement-runtime-environment-variables-with-create-react-app-docker-and-nginx-7f9d42a91d70/
+
 function App() {
 
   const [users, setUsers] = useState([])
 
   const fetchData = () => {
 
-    fetch("http://localhost:3001/uuid")
+    fetch(`${REACT_APP_API_HOST}/uuid`)
       .then(response => {
         return response.json()
       })
