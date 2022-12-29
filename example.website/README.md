@@ -9,7 +9,7 @@ yarn
 ## Develop
 
 ```sh
-API_HOST="http://localhost:3001" yarn start
+yarn start
 ```
 
 ## Usage
