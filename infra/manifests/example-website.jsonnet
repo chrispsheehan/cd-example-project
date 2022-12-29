@@ -19,6 +19,12 @@ local Config = import "./lib/config.libsonnet";
                                     containerPort: Config.Web.Port,
                                 },
                             ],
+                            env: [
+                                {
+                                    name: 'REACT_APP_API_HOST',
+                                    value: 'http://' + Config.Api.Service + '.' + Config.Namespace + '.svc.cluster.local:' + Config.Api.Port,
+                                },
+                            ],
                         },
                     ],
                 },
