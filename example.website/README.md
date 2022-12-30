@@ -14,10 +14,11 @@ yarn start-local
 
 ## Minikube port-forward
 
-- NOT required when running locally (`yarn start-local`)
+- NOT required when running locally (`yarn start`)
 
 ```sh
 kubectl port-forward svc/example-web-service -n example-app 3000:3000
+kubectl port-forward svc/example-web-service -n example-app 3001:3001
 ```
 
 ## Usage
