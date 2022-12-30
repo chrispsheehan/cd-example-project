@@ -13,9 +13,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "REACT_APP_API_HOST=http://localhost:3001 react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "start-local": "REACT_APP_API_HOST=http://localhost:3001 react-scripts start",
+    "start": "react-scripts start"
   },
   "eslintConfig": {
     "extends": [
