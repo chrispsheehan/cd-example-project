@@ -12,6 +12,14 @@ yarn
 yarn start
 ```
 
+## Minikube port-forward
+
+- NOT required when running locally (`yarn start`)
+
+```sh
+kubectl port-forward svc/example-web-service -n example-app 3000:3000
+```
+
 ## Usage
 
 Access via `localhost:3000`

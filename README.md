@@ -24,12 +24,15 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
 ```
 
-## Setup
+## Setup ArgoCD
 
 - Open port-forward tunnel
   - `kubectl port-forward svc/argocd-server -n argocd 8080:443`
 - (wait for pods) Obtain default password
   - `kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo`
+
+## (Optional) Change ArgoCD password
+
 - Login with admin user
   - `argocd login localhost:8080`
 - Update password
