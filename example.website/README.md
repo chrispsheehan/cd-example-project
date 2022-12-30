@@ -35,3 +35,9 @@ docker build . -t example-website:debug
 ```sh
 docker run -i --rm -p 3000:3000 -e API_HOST="http://host.docker.internal:3001" example-website:debug
 ```
+
+## Test API connnection within minikube
+
+```sh
+kubectl run --rm --restart=Never -n example-app -i tempy --image=nginx:alpine -- curl example-api-service.example-app.svc.cluster.local:3001/uuid
+```
