@@ -18,7 +18,7 @@ yarn start-local
 
 ```sh
 kubectl port-forward svc/example-web-service -n example-app 3000:3000
-kubectl port-forward svc/example-web-service -n example-app 3001:3001
+kubectl port-forward svc/example-api-service -n example-app 3001:3001
 ```
 
 ## Usage
