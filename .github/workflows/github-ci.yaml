@@ -64,11 +64,10 @@ jobs:
         echo ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.API_APP_NAME }}:${{ needs.setup.outputs.sha_short }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/${{ env.API_IMAGE_FILE }}
         cat ${GITHUB_WORKSPACE}/${{ env.API_IMAGE_FILE }}
 
-    - name: Commit and push changes
-      uses: devops-infra/action-commit-push@v0.3
+    - uses: actions/upload-artifact@master
       with:
-        github_token: ${{ secrets.GIT_TOKEN }}
-        commit_message: API version updated to ${{ needs.setup.outputs.sha_short }}
+        name: api-image-file
+        path: ${{ env.API_IMAGE_FILE }}
 
   build-web:
     needs: setup
@@ -111,8 +110,29 @@ jobs:
         echo ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.WEB_APP_NAME }}:${{ needs.setup.outputs.sha_short }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/${{ env.WEB_IMAGE_FILE }}
         cat ${GITHUB_WORKSPACE}/${{ env.WEB_IMAGE_FILE }}
 
+    - uses: actions/upload-artifact@master
+      with:
+        name: web-image-file
+        path: ${{ env.WEB_IMAGE_FILE }}
+
+  commit-versions:
+    needs: [ build-web, build-api ]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/download-artifact@master
+      with:
+        name: web-image-file
+        path: ${{ env.WEB_IMAGE_FILE }}
+
+    - uses: actions/download-artifact@master
+      with:
+        name: api-image-file
+        path: ${{ env.API_IMAGE_FILE }}
+
     - name: Commit and push changes
       uses: devops-infra/action-commit-push@v0.3
       with:
         github_token: ${{ secrets.GIT_TOKEN }}
-        commit_message: Web version updated to ${{ needs.setup.outputs.sha_short }}
+        commit_message: Images version updated to ${{ needs.setup.outputs.sha_short }}
