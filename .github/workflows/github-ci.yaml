@@ -45,7 +45,7 @@ jobs:
         path: ${{ env.API_SRC_FOLDER }}/dist
 
   push-api:
-    needs: build-api
+    needs: [ setup, build-api ]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/download-artifact@master
@@ -95,7 +95,7 @@ jobs:
         path: $WEB_SRC_FOLDER/dist
 
   push-web:
-    needs: build-web
+    needs: [ setup, build-web ]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/download-artifact@master
