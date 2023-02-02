@@ -32,12 +32,12 @@ jobs:
       with:
         node-version: 16
 
-    # - name: Build
-    #   run: |
-    #     cd ${GITHUB_WORKSPACE}/$API_SRC_FOLDER
-    #     ls
-    #     yarn
-    #     yarn build
+    - name: Build
+      run: |
+        cd ${GITHUB_WORKSPACE}/$API_SRC_FOLDER
+        ls
+        yarn
+        yarn build
     
     # - name: Set up QEMU
     #   uses: docker/setup-qemu-action@v2
@@ -58,16 +58,6 @@ jobs:
     #     push: true
     #     tags: "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.API_APP_NAME }}:${{ needs.setup.outputs.sha_short }}"
 
-    - name: Write build image to file
-      run: | 
-        : > ${GITHUB_WORKSPACE}/${{ env.API_IMAGE_FILE }}
-        echo ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.API_APP_NAME }}:${{ needs.setup.outputs.sha_short }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/${{ env.API_IMAGE_FILE }}
-        cat ${GITHUB_WORKSPACE}/${{ env.API_IMAGE_FILE }}
-
-    - uses: actions/upload-artifact@master
-      with:
-        name: api
-        path: ${{ env.API_IMAGE_FILE }}
 
   build-web:
     needs: setup
@@ -78,12 +68,12 @@ jobs:
       with:
         node-version: 16
     
-    # - name: Build
-    #   run: |
-    #     cd ${GITHUB_WORKSPACE}/$WEB_SRC_FOLDER
-    #     ls
-    #     npm install
-    #     npm install react-scripts
+    - name: Build
+      run: |
+        cd ${GITHUB_WORKSPACE}/$WEB_SRC_FOLDER
+        ls
+        npm install
+        npm install react-scripts
     
     # - name: Set up QEMU
     #   uses: docker/setup-qemu-action@v2
@@ -104,16 +94,6 @@ jobs:
     #     push: true
     #     tags: "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.WEB_APP_NAME }}:${{ needs.setup.outputs.sha_short }}"
 
-    - name: Write build image to file
-      run: | 
-        : > ${GITHUB_WORKSPACE}/${{ env.WEB_IMAGE_FILE }}
-        echo ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.WEB_APP_NAME }}:${{ needs.setup.outputs.sha_short }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/${{ env.WEB_IMAGE_FILE }}
-        cat ${GITHUB_WORKSPACE}/${{ env.WEB_IMAGE_FILE }}
-
-    - uses: actions/upload-artifact@master
-      with:
-        name: web
-        path: ${{ env.WEB_IMAGE_FILE }}
 
   commit-versions:
     needs: [ setup, build-web, build-api ]
@@ -124,15 +104,17 @@ jobs:
       with:
         node-version: 16
 
-    - name: Delete web image file
-      run: rm ${{ env.WEB_IMAGE_FILE }}
+    - name: Write api build image to file
+      run: | 
+        : > ${GITHUB_WORKSPACE}/${{ env.API_IMAGE_FILE }}
+        echo ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.API_APP_NAME }}:${{ needs.setup.outputs.sha_short }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/${{ env.API_IMAGE_FILE }}
+        cat ${GITHUB_WORKSPACE}/${{ env.API_IMAGE_FILE }}
 
-    - name: Delete api image file
-      run: rm ${{ env.API_IMAGE_FILE }}
-
-    - uses: actions/download-artifact@master
-      with:
-        path: ${{ env.IMAGE_FODER }}
+    - name: Write web build image to file
+      run: | 
+        : > ${GITHUB_WORKSPACE}/${{ env.WEB_IMAGE_FILE }}
+        echo ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.WEB_APP_NAME }}:${{ needs.setup.outputs.sha_short }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/${{ env.WEB_IMAGE_FILE }}
+        cat ${GITHUB_WORKSPACE}/${{ env.WEB_IMAGE_FILE }}
 
     - name: ls lib files
       run: ls ${{ env.IMAGE_FODER }}
