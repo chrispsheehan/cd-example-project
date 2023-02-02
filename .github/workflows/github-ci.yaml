@@ -16,7 +16,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      sha_short: ${{ steps.set_sha.outputs.GITHUB_SHA_SHORT }}
+      sha_short: ${{ needs.setup.outputs.sha_short }}
     steps:
     - uses: actions/checkout@v3
     - id: set_sha
@@ -62,12 +62,12 @@ jobs:
       with:
         context: ./${{ env.API_SRC_FOLDER }}/
         push: true
-        tags: "${{ env.DOCKERHUB_USERNAME }}/${{ env.API_APP_NAME }}:${{ steps.set_sha.outputs.GITHUB_SHA_SHORT }}"
+        tags: "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.API_APP_NAME }}:${{ needs.setup.outputs.sha_short }}"
 
     - name: API - Write build image to file
       run: | 
         : > ${GITHUB_WORKSPACE}/${{ env.API_IMAGE_FILE }}
-        echo ${{ env.DOCKERHUB_USERNAME }}/${{ env.API_APP_NAME }}:${{ steps.set_sha.outputs.GITHUB_SHA_SHORT }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/${{ env.API_IMAGE_FILE }}
+        echo ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.API_APP_NAME }}:${{ needs.setup.outputs.sha_short }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/${{ env.API_IMAGE_FILE }}
         cat ${GITHUB_WORKSPACE}/${{ env.API_IMAGE_FILE }}
 
     - name: Website - Build and push 
@@ -75,16 +75,16 @@ jobs:
       with:
         context: ./${{ env.WEB_SRC_FOLDER }}/
         push: true
-        tags: "${{ env.DOCKERHUB_USERNAME }}/${{ env.WEB_APP_NAME }}:${{ steps.set_sha.outputs.GITHUB_SHA_SHORT }}"
+        tags: "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.WEB_APP_NAME }}:${{ needs.setup.outputs.sha_short }}"
 
     - name: Website - Write build image to file
       run: | 
         : > ${GITHUB_WORKSPACE}/${{ env.WEB_IMAGE_FILE }}
-        echo ${{ env.DOCKERHUB_USERNAME }}/${{ env.WEB_APP_NAME }}:${{ steps.set_sha.outputs.GITHUB_SHA_SHORT }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/${{ env.WEB_IMAGE_FILE }}
+        echo ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.WEB_APP_NAME }}:${{ needs.setup.outputs.sha_short }} | xargs | tr -d '\n' > ${GITHUB_WORKSPACE}/${{ env.WEB_IMAGE_FILE }}
         cat ${GITHUB_WORKSPACE}/${{ env.WEB_IMAGE_FILE }}
 
     - name: Commit and push changes
       uses: devops-infra/action-commit-push@v0.3
       with:
         github_token: ${{ secrets.GIT_TOKEN }}
-        commit_message: Version updated to ${{ steps.set_sha.outputs.GITHUB_SHA_SHORT }}
+        commit_message: Version updated to ${{ needs.setup.outputs.sha_short }}
