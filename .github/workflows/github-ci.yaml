@@ -42,7 +42,7 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: api-build
-        path: $API_SRC_FOLDER/dist
+        path: ${{ env.API_SRC_FOLDER }}/dist
 
   push-api:
     needs: build-api
