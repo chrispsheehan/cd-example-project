@@ -66,6 +66,7 @@ jobs:
 
     - uses: actions/upload-artifact@master
       with:
+        name: ${{ env.API_IMAGE_FILE }}
         path: ${{ env.API_IMAGE_FILE }}
 
   build-web:
@@ -111,6 +112,7 @@ jobs:
 
     - uses: actions/upload-artifact@master
       with:
+        name: ${{ env.WEB_IMAGE_FILE }}
         path: ${{ env.WEB_IMAGE_FILE }}
 
   commit-versions:
