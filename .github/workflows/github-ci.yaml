@@ -116,7 +116,7 @@ jobs:
         path: ${{ env.WEB_IMAGE_FILE }}
 
   commit-versions:
-    needs: [ build-web, build-api ]
+    needs: [ setup, build-web, build-api ]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
