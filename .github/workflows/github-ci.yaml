@@ -8,10 +8,10 @@ env:
   API_SRC_FOLDER: "example.api"
   API_APP_NAME: "example-api"
   IMAGE_FODER: infra/manifests/lib
-  API_IMAGE_FILE: ${{ env.IMAGE_FODER }}/api.image.txt
+  API_IMAGE_FILE: infra/manifests/lib/api.image.txt
   WEB_SRC_FOLDER: "example.website"
   WEB_APP_NAME: "example-website"
-  WEB_IMAGE_FILE: ${{ env.IMAGE_FODER }}/website.image.txt
+  WEB_IMAGE_FILE: infra/manifests/lib/website.image.txt
 
 jobs:
   setup:
