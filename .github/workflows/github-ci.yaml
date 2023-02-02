@@ -66,7 +66,7 @@ jobs:
 
     - uses: actions/upload-artifact@master
       with:
-        name: api.image.txt
+        name: ${{ env.IMAGE_FODER }}
         path: ${{ env.API_IMAGE_FILE }}
 
   build-web:
@@ -112,7 +112,7 @@ jobs:
 
     - uses: actions/upload-artifact@master
       with:
-        name: web.image.txt
+        name: ${{ env.IMAGE_FODER }}
         path: ${{ env.WEB_IMAGE_FILE }}
 
   commit-versions:
@@ -137,8 +137,8 @@ jobs:
     - name: ls libs
       run: echo ${{ env.IMAGE_FODER }} && ls ${{ env.IMAGE_FODER }}
 
-    - name: Commit and push changes
-      uses: devops-infra/action-commit-push@v0.3
-      with:
-        github_token: ${{ secrets.GIT_TOKEN }}
-        commit_message: Images version updated to ${{ needs.setup.outputs.sha_short }}
+    # - name: Commit and push changes
+    #   uses: devops-infra/action-commit-push@v0.3
+    #   with:
+    #     github_token: ${{ secrets.GIT_TOKEN }}
+    #     commit_message: Images version updated to ${{ needs.setup.outputs.sha_short }}
