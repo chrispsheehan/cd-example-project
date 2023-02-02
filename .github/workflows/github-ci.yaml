@@ -32,12 +32,12 @@ jobs:
       with:
         node-version: 16
 
-    - name: Build
-      run: |
-        cd ${GITHUB_WORKSPACE}/$API_SRC_FOLDER
-        ls
-        yarn
-        yarn build
+    # - name: Build
+    #   run: |
+    #     cd ${GITHUB_WORKSPACE}/$API_SRC_FOLDER
+    #     ls
+    #     yarn
+    #     yarn build
     
     # - name: Set up QEMU
     #   uses: docker/setup-qemu-action@v2
@@ -77,12 +77,12 @@ jobs:
       with:
         node-version: 16
     
-    - name: Build
-      run: |
-        cd ${GITHUB_WORKSPACE}/$WEB_SRC_FOLDER
-        ls
-        npm install
-        npm install react-scripts
+    # - name: Build
+    #   run: |
+    #     cd ${GITHUB_WORKSPACE}/$WEB_SRC_FOLDER
+    #     ls
+    #     npm install
+    #     npm install react-scripts
     
     # - name: Set up QEMU
     #   uses: docker/setup-qemu-action@v2
@@ -133,7 +133,7 @@ jobs:
         path: ${{ env.IMAGE_FODER }}
 
     - name: ls libs
-      run: ls ${{ env.IMAGE_FODER }}
+      run: echo ${{ env.IMAGE_FODER }} && ls ${{ env.IMAGE_FODER }}
 
     # - name: Commit and push changes
     #   uses: devops-infra/action-commit-push@v0.3
