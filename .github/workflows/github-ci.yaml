@@ -16,7 +16,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      sha_short: ${{ needs.setup.outputs.sha_short }}
+      sha_short: ${{ steps.set_sha.outputs.GITHUB_SHA_SHORT }}
     steps:
     - uses: actions/checkout@v3
     - id: set_sha
