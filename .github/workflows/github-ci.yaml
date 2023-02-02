@@ -93,8 +93,13 @@ jobs:
 
     - uses: actions/upload-artifact@master
       with:
-        name: web-build
-        path: $WEB_SRC_FOLDER/dist
+        name: web-build-src
+        path: ${{ env.WEB_SRC_FOLDER }}/src
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: web-build-pub
+        path: ${{ env.WEB_SRC_FOLDER }}/public
 
   push-web:
     needs: [ setup, build-web ]
@@ -104,8 +109,13 @@ jobs:
 
     - uses: actions/download-artifact@master
       with:
-        name: web-build
-        path: ${{ env.WEB_SRC_FOLDER }}/dist
+        name: web-build-src
+        path: ${{ env.WEB_SRC_FOLDER }}/src
+
+    - uses: actions/download-artifact@master
+      with:
+        name: web-build-pub
+        path: ${{ env.WEB_SRC_FOLDER }}/public
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
