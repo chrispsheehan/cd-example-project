@@ -120,11 +120,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: Delete web image file
+      run: rm ${{ env.WEB_IMAGE_FILE }}
 
     - uses: actions/download-artifact@master
       with:
         name: web-image-file
         path: ${{ env.WEB_IMAGE_FILE }}
+
+    - name: Delete api image file
+      run: rm ${{ env.API_IMAGE_FILE }}
 
     - uses: actions/download-artifact@master
       with:
