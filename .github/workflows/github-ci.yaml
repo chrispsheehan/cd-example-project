@@ -53,7 +53,7 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: api-build
-        path: dist
+        path: ${{ env.API_SRC_FOLDER }}/dist
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
@@ -101,11 +101,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    
+
     - uses: actions/download-artifact@master
       with:
         name: web-build
-        path: dist
+        path: ${{ env.WEB_SRC_FOLDER }}/dist
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
