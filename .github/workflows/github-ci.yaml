@@ -119,8 +119,8 @@ jobs:
     - name: ls lib files
       run: ls ${{ env.IMAGE_FODER }}
 
-    # - name: Commit and push changes
-    #   uses: devops-infra/action-commit-push@v0.3
-    #   with:
-    #     github_token: ${{ secrets.GIT_TOKEN }}
-    #     commit_message: Images version updated to ${{ needs.setup.outputs.sha_short }}
+    - name: Commit and push changes
+      uses: devops-infra/action-commit-push@v0.3
+      with:
+        github_token: ${{ secrets.GIT_TOKEN }}
+        commit_message: Images version updated to ${{ needs.setup.outputs.sha_short }}
