@@ -38,7 +38,21 @@ jobs:
         ls
         yarn
         yarn build
-    
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: api-build
+        path: $WEB_SRC_FOLDER/dist
+
+  push-api:
+    needs: build-api
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: api-build
+        path: dist
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     
@@ -74,7 +88,21 @@ jobs:
         ls
         npm install
         npm install react-scripts
-    
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: web-build
+        path: $WEB_SRC_FOLDER/dist
+
+  push-web:
+    needs: build-web
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: web-build
+        path: dist
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     
@@ -87,7 +115,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Build and push 
+    - name: Push 
       uses: docker/build-push-action@v3
       with:
         context: ./${{ env.WEB_SRC_FOLDER }}/
@@ -96,7 +124,7 @@ jobs:
 
 
   update-image-tags:
-    needs: [ setup, build-web, build-api ]
+    needs: [ setup, push-web, push-api ]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
